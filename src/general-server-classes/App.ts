@@ -8,12 +8,19 @@ class App{
         this.mountRoutes()
     }
 
+    //Mounts all routes for our application
     private mountRoutes (): void {
         const router = express.Router()
         router.get('/', (req, res) => {
             res.json({
-                message: 'Hello World!'
+                message: 'Home Page'
             })
+        })
+        router.get('/user-profile', (req, res) => {
+
+        })
+        router.get('/library', (req, res) => {
+            
         })
         this.express.use('/', router)
     }
