@@ -22,6 +22,21 @@ class App{
         router.get('/library', (req, res) => {
             
         })
+        router.get('/console', (req, res) =>{
+
+        })
+        router.get('/publisher', (req, res) =>{
+
+        })
+        router.get('/developer', (req, res) =>{
+
+        })
+        router.get('/Forum', (req, res) => {
+
+        })
+        router.get('/thread-', (req, res) => {
+            
+        })
         this.express.use('/', router)
     }
 }
