@@ -1,4 +1,5 @@
 import * as express from 'express'
+import { userInfo } from 'os';
 
 class App{
     public express
@@ -16,25 +17,31 @@ class App{
                 message: 'Home Page'
             })
         })
-        router.get('/user-profile', (req, res) => {
+        router.route('/:user-:num').get( (req, res) =>{
+            req.params['user']['num']
+            res.send({
+            
+            })
+        })
+        router.get('/:user-:num/profile', (req, res) => {
 
         })
-        router.get('/library', (req, res) => {
+        router.get('/:user-:num/library', (req, res) => {
             
         })
-        router.get('/console', (req, res) =>{
+        router.get('/:console', (req, res) =>{
 
         })
-        router.get('/publisher', (req, res) =>{
+        router.get('/:publisher', (req, res) =>{
 
         })
-        router.get('/developer', (req, res) =>{
+        router.get('/:developer', (req, res) =>{
 
         })
-        router.get('/Forum', (req, res) => {
+        router.get('/forum', (req, res) => {
 
         })
-        router.get('/thread-', (req, res) => {
+        router.get('/forum/:thread-', (req, res) => {
             
         })
         this.express.use('/', router)
