@@ -1,4 +1,4 @@
-
+import connection from './../general-server-classes/Database'
 
 class Profile {
     private 
