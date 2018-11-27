@@ -1,4 +1,7 @@
 import * as express from 'express'
+import user from './../user-classes/User'
+import userProfile from './../user-classes/Profile'
+import library from './../user-classes/Library'
 
 class App{
     public express
@@ -16,10 +19,22 @@ class App{
                 message: 'Home Page'
             })
         })
-        router.get('/user-profile', (req, res) => {
 
+        router.param('userID', (req, res, next, userID) => {
+            if(user.validateUser(req.param.userName, req.param.password)){
+                userID = user.getID()
+            }
+            next()
         })
-        router.get('/library', (req, res) => {
+
+        router.get('/:userID', (req, res) => {
+            res.send(req.param.userID)
+        })
+
+        router.get('/:userID/profile', (req, res) => {
+            // res.json(userProfile.getInfo())
+        })
+        router.get('/:userID/library', (req, res) => {
             
         })
         router.get('/console', (req, res) =>{
@@ -31,10 +46,15 @@ class App{
         router.get('/developer', (req, res) =>{
 
         })
-        router.get('/Forum', (req, res) => {
+        router.get('/forum', (req, res) => {
 
         })
-        router.get('/thread-', (req, res) => {
+        
+        router.param('thread', (req, res, next, thread) => {
+            
+        })
+
+        router.get('/forum/:thread', (req, res) => {
             
         })
         this.express.use('/', router)
