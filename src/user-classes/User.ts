@@ -1,15 +1,19 @@
 import app from './../general-server-classes/App'
 import profile from './Profile'
 import connection from './../general-server-classes/Database'
-import { isNull } from 'util';
+import { isNull, isDeepStrictEqual } from 'util';
+import admin from './AdminUser'
 
 class User {
+    
     private username: String
     private id: String
+    private isAdmin: boolean
 
     public constructor() {
         this.username = ''
-        this.id = '0000000'
+        this.id = null
+        this.isAdmin = false
     }
 
     public validateUser(currentName: String, currentPassword: String): boolean{
@@ -23,6 +27,18 @@ class User {
                     if(err){
                         throw err;
                     }
+                    // if we did not get an error, then we check if they are an admin or not.
+                    let adminArray: String[] = connection.query("SELECT id_number FROM admin", (err) =>{
+                        if(err){
+                            throw err
+                        }
+                        for(let item in adminArray){
+                            if(isDeepStrictEqual(item, this.id)){
+                                this.isAdmin = true
+                                break //lets leave the loop
+                            }
+                        }
+                    })
                     console.log("ID got")
                 })
             }
@@ -35,7 +51,7 @@ class User {
     }
 
     // Getter for the ID of the user
-    public getID(){
+    public getID(): String {
         return this.id
     }
 }
