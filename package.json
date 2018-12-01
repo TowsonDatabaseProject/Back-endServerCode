@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/TowsonDatabaseProject/Back-endServerCode#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "@types/node": "^10.12.10",
+    "express": "^4.16.4",
+    "node-modules": "^1.0.1"
   }
 }
