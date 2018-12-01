@@ -1,15 +1,18 @@
 import * as express from 'express'
-import user from './../user-classes/User'
+import User from './../user-classes/User'
 import userProfile from './../user-classes/Profile'
 import library from '../library-classes/Library'
 import Profile from './../user-classes/Profile';
 import PublisherLibrary from '../library-classes/PublisherLibrary';
+import AdminUser from '../user-classes/AdminUser';
 
 class App{
     public express
+    private user: User
 
     constructor() {
         this.express = express()
+        this.user = new User()
         this.mountRoutes()
     }
 
@@ -23,8 +26,8 @@ class App{
         })
 
         router.param('userID', (req, res, next, userID) => {
-            if(user.validateUser(req.param.userName, req.param.password)){
-                userID = user.getID()
+            if(this.user.validateUser(req.param.userName, req.param.password)){
+                userID = this.user.getID()
             }
             next()
         })
@@ -32,8 +35,17 @@ class App{
         router.get('/:userID', (req, res) => {
             res.send(req.param.userID)
         })
+
+        if(this.user.isAdmin()){
+            // this.user = new AdminUser(this.user)
+        }
+
+        router.get('/:userID/main_page', (req, res) =>{
+
+        })
+        
         router.get('/:userID/profile', (req, res) => {
-            Profile.setID(user.getID())
+            Profile.setID(this.user.getID())
             res.send(Profile)
         })
         router.get('/:userID/library', (req, res) => {

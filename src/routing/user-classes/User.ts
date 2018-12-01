@@ -4,16 +4,16 @@ import connection from './../general-server-classes/Database'
 import { isNull, isDeepStrictEqual } from 'util';
 import admin from './AdminUser'
 
-class User {
+export default class User {
     
     private username: String
     private id: String
-    private isAdmin: boolean
+    private adminStatus: boolean
 
     public constructor() {
         this.username = ''
         this.id = null
-        this.isAdmin = false
+        this.adminStatus = false
     }
 
     public validateUser(currentName: String, currentPassword: String): boolean{
@@ -49,12 +49,14 @@ class User {
             }
             for(var item in adminArray){
                 if(isDeepStrictEqual(item, this.id)){
-                    this.isAdmin = true
+                    this.adminStatus = true
                     break //lets leave the loop
                 }
             }
         })
     }
-}
 
-export default new User()
+    public isAdmin(): boolean{
+        return this.adminStatus
+    }
+}
