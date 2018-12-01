@@ -28,31 +28,32 @@ class User {
                         throw err;
                     }
                     // if we did not get an error, then we check if they are an admin or not.
-                    let adminArray: String[] = connection.query("SELECT id_number FROM admin", (err) =>{
-                        if(err){
-                            throw err
-                        }
-                        for(let item in adminArray){
-                            if(isDeepStrictEqual(item, this.id)){
-                                this.isAdmin = true
-                                break //lets leave the loop
-                            }
-                        }
-                    })
+                    this.setAdmin()
                     console.log("ID got")
                 })
             }
         })
         // If the id has been set, then we will return true.
-        if(!isNull(this.id)){
-            return true
-        }
-        return false
+        return !isNull(this.id)
     }
 
     // Getter for the ID of the user
     public getID(): String {
         return this.id
+    }
+
+    private setAdmin(){
+        let adminArray: String[] = connection.query("SELECT id_number FROM admin", (err) =>{
+            if(err){
+                throw err
+            }
+            for(var item in adminArray){
+                if(isDeepStrictEqual(item, this.id)){
+                    this.isAdmin = true
+                    break //lets leave the loop
+                }
+            }
+        })
     }
 }
 

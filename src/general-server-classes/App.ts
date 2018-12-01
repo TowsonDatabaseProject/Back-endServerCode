@@ -1,7 +1,9 @@
 import * as express from 'express'
 import user from './../user-classes/User'
 import userProfile from './../user-classes/Profile'
-import library from './../user-classes/Library'
+import library from '../library-classes/Library'
+import Profile from './../user-classes/Profile';
+import PublisherLibrary from '../library-classes/PublisherLibrary';
 
 class App{
     public express
@@ -30,9 +32,9 @@ class App{
         router.get('/:userID', (req, res) => {
             res.send(req.param.userID)
         })
-
         router.get('/:userID/profile', (req, res) => {
-            // res.json(userProfile.getInfo())
+            Profile.setID(user.getID())
+            res.send(Profile)
         })
         router.get('/:userID/library', (req, res) => {
             
@@ -41,7 +43,7 @@ class App{
 
         })
         router.get('/:publisher', (req, res) =>{
-
+            // res.send(new PublisherLibrary())
         })
         router.get('/:developer', (req, res) =>{
 
